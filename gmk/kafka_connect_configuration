@@ -1,0 +1,10 @@
+auto.create.tables=true
+connector.class=com.wepay.kafka.connect.bigquery.BigQuerySinkConnector
+defaultDataset=lab_kafka_data
+key.converter=org.apache.kafka.connect.storage.StringConverter
+name=kafka_2_bq
+tasks.max=3
+topics=kafka-lab-topic
+value.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter.schemas.enable=true
+consumer.override.auto.offset.reset=latest
