@@ -82,7 +82,7 @@ resource "google_managed_kafka_cluster" "gmk" {
     google_project_service.apis
   ]
 }
-
+##topic
 resource "google_managed_kafka_topic" "topic" {
   topic_id = "kafka-lab-topic"
   cluster = google_managed_kafka_cluster.gmk.cluster_id
@@ -97,21 +97,4 @@ resource "google_managed_kafka_topic" "topic" {
   ]
 }
 
-#TODO add google private access
-module "cli" {
-  source  = "terraform-google-modules/gcloud/google"
-  version = "~> 3.0.1"
 
-  platform              = "linux"
-  additional_components = ["core", "bq"]
-
-  create_cmd_entrypoint    = "chmod +x ${path.module}/scripts/script.sh;${path.module}/scripts/script.sh"
-  create_cmd_body          = "${var.gcp_project_id} ${var.gcp_region} ${var.gcp_zone}"
-  skip_download            = false
-  upgrade                  = false
-  gcloud_sdk_version       = "542.0.0"
-  service_account_key_file = var.service_account_key_file
-  depends_on = [
-    google_compute_subnetwork.subnet
-  ]
-}
